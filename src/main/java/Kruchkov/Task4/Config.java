@@ -27,6 +27,7 @@ public class Config {
         config.addDataSourceProperty("cachePrepStmts", "true");
         config.addDataSourceProperty("prepStmtCacheSize", "250");
         config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
+        config.setAutoCommit(true);
         return new HikariDataSource(config);
     }
 
@@ -39,4 +40,6 @@ public class Config {
     public UserService userService(UserDAO userDAO) {
         return new UserService(userDAO);
     }
+
+
 }

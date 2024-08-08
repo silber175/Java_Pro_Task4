@@ -35,16 +35,6 @@ public class UserDAO {
         catch(SQLException e){ throw e; }
     }
 
-
-    public void commit() throws SQLException {
-       String query = "COMMIT";
-        try
-        {
-            statement.execute(query);
-        }
-        catch(SQLException e){ throw e; }
-    }
-
     public List<User> findAll() throws SQLException {
         List<User> users = new ArrayList<>();
         String query = "SELECT id AS id, username AS username FROM "+this.tableName;

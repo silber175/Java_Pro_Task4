@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -14,18 +15,17 @@ public class Tests {
     @Test
     public void insert() throws SQLException {  //
 
-        ApplicationContext context =  SpringApplication.run(Config.class);
+        AnnotationConfigApplicationContext context =  new AnnotationConfigApplicationContext(Config.class);
         UserService userServiceB =context.getBean(UserService.class);
         UserService userService = userServiceB;
 
         User user =new User("petrov");
-        userService.getUserDAO().insert(user);
+        userService.insert(user);
 
         user =new User("kuznezov");
-        userService.getUserDAO().insert(user);
-        userService.getUserDAO().commit();
+        userService.insert(user);
 
-        List<User> userList = userService.getUserDAO().findAll();
+        List<User> userList = userService.findAll();
         for(User userD : userList)
             Assertions.assertTrue((userD.getUsername().equals("petrov") || userD.getUsername().equals("kuznezov")),
                     "Не прошла запись или чтение в/из БД");
@@ -33,39 +33,37 @@ public class Tests {
 
     @Test
     public void findById() throws SQLException {
-        ApplicationContext context =  SpringApplication.run(Config.class);
+        AnnotationConfigApplicationContext context =  new AnnotationConfigApplicationContext(Config.class);
         UserService userServiceB =context.getBean(UserService.class);
         UserService userService = userServiceB;
 
         User user =new User("petrov");
-        userService.getUserDAO().insert(user);
+        userService.insert(user);
 
         user =new User("kuznezov");
-        userService.getUserDAO().insert(user);
-        userService.getUserDAO().commit();
+        userService.insert(user);
 
-        List<User> userList = userService.getUserDAO().findAll();
+        List<User> userList = userService.findAll();
 
         for(User userD : userList) {
-            user = userService.getUserDAO().findById(userD.getId());
+            user = userService.findById(userD.getId());
             Assertions.assertEquals(user.getUsername(), userD.getUsername());
         }
     }
 
     @Test
     public void findAll() throws SQLException {
-        ApplicationContext context =  SpringApplication.run(Config.class);
+        AnnotationConfigApplicationContext context =  new AnnotationConfigApplicationContext(Config.class);
         UserService userServiceB =context.getBean(UserService.class);
         UserService userService = userServiceB;
 
         User user =new User("petrov");
-        userService.getUserDAO().insert(user);
+        userService.insert(user);
 
         user =new User("kuznezov");
-        userService.getUserDAO().insert(user);
-        userService.getUserDAO().commit();
+        userService.insert(user);
 
-        List<User> userList = userService.getUserDAO().findAll();
+        List<User> userList = userService.findAll();
 
         for(User userD : userList)
             Assertions.assertTrue((userD.getUsername().equals("petrov") || userD.getUsername().equals("kuznezov")),
@@ -75,47 +73,42 @@ public class Tests {
 
     @Test
     public void findByUsername() throws SQLException {
-        ApplicationContext context =  SpringApplication.run(Config.class);
+        AnnotationConfigApplicationContext context =  new AnnotationConfigApplicationContext(Config.class);
         UserService userServiceB =context.getBean(UserService.class);
         UserService userService = userServiceB;
 
         User user =new User("petrov");
-        userService.getUserDAO().insert(user);
+        userService.insert(user);
 
         user =new User("kuznezov");
-        userService.getUserDAO().insert(user);
-        userService.getUserDAO().commit();
+        userService.insert(user);
 
-        List<User> userList = userService.getUserDAO().findAll();
-
+        List<User> userList = userService.findAll();
         for(User userD : userList) {
-            user = userService.getUserDAO().findByUsername(userD.getUsername());
+            user = userService.findByUsername(userD.getUsername());
             Assertions.assertEquals(user.getUsername(), userD.getUsername());
         }
     }
 
     @Test
     public void delById() throws SQLException {
-        ApplicationContext context =  SpringApplication.run(Config.class);
+        AnnotationConfigApplicationContext context =  new AnnotationConfigApplicationContext(Config.class);
         UserService userServiceB =context.getBean(UserService.class);
         UserService userService = userServiceB;
 
         User user =new User("petrov");
-        userService.getUserDAO().insert(user);
+        userService.insert(user);
 
         user =new User("kuznezov");
-        userService.getUserDAO().insert(user);
-        userService.getUserDAO().commit();
+        userService.insert(user);
 
-        List<User> userList = userService.getUserDAO().findAll();
-
+        List<User> userList = userService.findAll();
         boolean tryCatch = false;
         for(User userD : userList) {
 
-            userService.getUserDAO().delById(userD.getId());
-            userService.getUserDAO().commit();
+            userService.delById(userD.getId());
             try {
-                user = userService.getUserDAO().findById(userD.getId());
+                user = userService.findById(userD.getId());
             }
             catch (Exception ex) {
                 tryCatch = true;
@@ -126,33 +119,28 @@ public class Tests {
     }
     @Test
     public void delByUsername() throws SQLException {
-        ApplicationContext context =  SpringApplication.run(Config.class);
+        AnnotationConfigApplicationContext context =  new AnnotationConfigApplicationContext(Config.class);
         UserService userServiceB =context.getBean(UserService.class);
         UserService userService = userServiceB;
 
         User user =new User("petrov");
-        userService.getUserDAO().insert(user);
+        userService.insert(user);
 
         user =new User("kuznezov");
-        userService.getUserDAO().insert(user);
-        userService.getUserDAO().commit();
+        userService.insert(user);
 
-        List<User> userList = userService.getUserDAO().findAll();
+        List<User> userList = userService.findAll();
         boolean tryCatch = false;
         for(User userD : userList) {
 
-            userService.getUserDAO().delByUsername(userD.getUsername());
-            userService.getUserDAO().commit();
+            userService.delByUsername(userD.getUsername());
             try {
-                user = userService.getUserDAO().findByUsername(userD.getUsername());
+                user = userService.findByUsername(userD.getUsername());
             }
             catch (Exception ex) {
                 tryCatch = true;
             }
             Assertions.assertTrue(tryCatch,"Не работает удаление по username");
         }
-
     }
-
-
 }

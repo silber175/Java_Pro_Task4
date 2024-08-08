@@ -6,15 +6,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
-@Table(name="user")
+
     public class User {
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
+
         private long id;
-
-        @Column(name = "username")
         private String username;
-
 
         public User() {
         }
