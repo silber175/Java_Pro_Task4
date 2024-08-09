@@ -13,7 +13,6 @@ public class UserDAO {
     private String      tableName;
     private Statement statement ;
 
-    @Autowired
     public UserDAO(DataSource dataSource) {
         this.dataSource = dataSource;
         this.tableName = "student.user";

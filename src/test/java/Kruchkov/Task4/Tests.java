@@ -13,7 +13,7 @@ import java.util.List;
 
 public class Tests {
     @Test
-    public void insert() throws SQLException {  //
+    public void insert() throws SQLException {
 
         AnnotationConfigApplicationContext context =  new AnnotationConfigApplicationContext(Config.class);
         UserService userServiceB =context.getBean(UserService.class);

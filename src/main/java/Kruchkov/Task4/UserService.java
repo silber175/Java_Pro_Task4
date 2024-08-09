@@ -1,13 +1,15 @@
 package Kruchkov.Task4;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
 import java.util.List;
 
-@Service
+
 public class UserService {
     private UserDAO userDAO;
+
 
     public UserService(UserDAO userDAO) {
         this.userDAO = userDAO;

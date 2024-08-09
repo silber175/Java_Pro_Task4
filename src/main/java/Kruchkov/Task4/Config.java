@@ -40,6 +40,4 @@ public class Config {
     public UserService userService(UserDAO userDAO) {
         return new UserService(userDAO);
     }
-
-
 }
