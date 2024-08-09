@@ -68,7 +68,6 @@ public class Tests {
         for(User userD : userList)
             Assertions.assertTrue((userD.getUsername().equals("petrov") || userD.getUsername().equals("kuznezov")),
                     "Не прошло чтение всех записей из БД");
-
     }
 
     @Test

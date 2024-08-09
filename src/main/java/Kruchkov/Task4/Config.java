@@ -15,7 +15,6 @@ import javax.sql.DataSource;
 @ConfigurationProperties
 public class Config {
 
-
     @Bean
     public DataSource dataSource() {
         HikariConfig config = new HikariConfig();

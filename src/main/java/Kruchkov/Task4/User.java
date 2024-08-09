@@ -1,5 +1,4 @@
 package Kruchkov.Task4;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Table;
 import jakarta.persistence.GeneratedValue;
